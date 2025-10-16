@@ -81,8 +81,16 @@ export const CanvasCorte = forwardRef<CanvasCorteRef, CanvasCorteProps>(({ chapa
         ctx.font = "bold 12px sans-serif"
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
-        const texto = `${item.peca.largura}×${item.peca.altura}`
+        
+        // Mostrar nome se disponível, senão mostrar dimensões
+        const texto = item.peca.nome || `${item.peca.largura}×${item.peca.altura}`
         ctx.fillText(texto, x + w / 2, y + h / 2)
+        
+        // Se tem nome, mostrar também as dimensões abaixo
+        if (item.peca.nome) {
+          ctx.font = "10px sans-serif"
+          ctx.fillText(`${item.peca.largura}×${item.peca.altura}`, x + w / 2, y + h / 2 + 15)
+        }
       })
     })
   }, [chapa, resultado])

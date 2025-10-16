@@ -78,10 +78,11 @@ export async function exportarPDF(
   pdf.setFontSize(9)
 
   // Cabeçalho da tabela
-  pdf.text("Largura", 20, yPosition)
-  pdf.text("Altura", 60, yPosition)
-  pdf.text("Qtd", 100, yPosition)
-  pdf.text("Cor", 130, yPosition)
+  pdf.text("Nome", 20, yPosition)
+  pdf.text("Largura", 60, yPosition)
+  pdf.text("Altura", 90, yPosition)
+  pdf.text("Qtd", 120, yPosition)
+  pdf.text("Cor", 140, yPosition)
   yPosition += 5
 
   // Linhas da tabela
@@ -90,12 +91,19 @@ export async function exportarPDF(
       pdf.addPage()
       yPosition = 20
     }
-    pdf.text(`${peca.largura} mm`, 20, yPosition)
-    pdf.text(`${peca.altura} mm`, 60, yPosition)
-    pdf.text(`${peca.quantidade}`, 100, yPosition)
-    const rgb = hexToRgb(peca.cor)
+    
+    // Nome da peça (ou "Sem nome" se não tiver)
+    const nomeExibicao = peca.nome || "Sem nome"
+    pdf.text(nomeExibicao, 20, yPosition)
+    pdf.text(`${peca.largura} mm`, 60, yPosition)
+    pdf.text(`${peca.altura} mm`, 90, yPosition)
+    pdf.text(`${peca.quantidade}`, 120, yPosition)
+    
+    // Cor padrão para todas as peças (já que não temos cor individual)
+    const cor = "#4CAF50"
+    const rgb = hexToRgb(cor)
     pdf.setFillColor(rgb.r, rgb.g, rgb.b)
-    pdf.rect(130, yPosition - 3, 10, 4, "F")
+    pdf.rect(140, yPosition - 3, 10, 4, "F")
     yPosition += 5
   })
 

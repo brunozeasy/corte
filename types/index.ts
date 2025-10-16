@@ -8,6 +8,7 @@ export interface Peca {
   largura: number
   altura: number
   quantidade: number
+  nome?: string
 }
 
 export interface PecaColocada {
